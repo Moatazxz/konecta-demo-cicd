@@ -2,12 +2,32 @@ pipeline {
     agent any
 
     stages {
-        stage('Hello') {
+        // stage('Hello') {
+        //     steps {
+        //         sh 'chmod +x test.sh '
+        //         sh './test.sh'
+        //     }
+        // }
+
+        //////
+        stage('build') {
             steps {
-                sh 'chmod +x test.sh '
-                sh './test.sh'
+                sh '''
+                   docker build -t docker.io/moatazxz/myapp:latest
+                '''
             }
         }
+     ////////
+
+       stage('build') {
+            steps {
+            withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+          sh """
+            echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin docker.io
+            docker push docker.io/moatazxz/myapp:latest
+          """
+            }
+        }   
     }
 }
 
