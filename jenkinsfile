@@ -4,8 +4,10 @@ pipeline {
     stages {
         stage('Hello') {
             steps {
+                sh 'chmod +x test.sh '
                 sh './test.sh'
             }
         }
     }
 }
+
