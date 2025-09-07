@@ -3,7 +3,7 @@ pipeline {
 
     stages {
 
-      stage ('build') 
+      stage ('test') 
       { 
         steps {  
              sh '''
@@ -14,6 +14,16 @@ pipeline {
              }
      
       }
+
+
+     stage('build') {
+            steps {
+                sh '''
+                   docker build -t docker.io/moatazxz/myapp:latest  .
+                   docker images
+                '''
+            }
+        }
 
      
 
