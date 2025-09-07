@@ -58,7 +58,7 @@ pipeline {
         ]) {
         
         script {
-         docker.image('hashicorp/terraform:1.9.5').inside("-e AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY") {
+         docker.image('hashicorp/terraform:1.9.5').inside(" --entrypoint='' -e AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY") {
           dir('infra') {
                     sh '''
                         terraform init -input=false
