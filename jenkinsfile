@@ -39,9 +39,8 @@ pipeline {
             sh """
               ssh -o StrictHostKeyChecking=no ubuntu@3.74.166.220 '
                 set -euo pipefail
-                IMAGE='docker.io/moatazxz/myapp:latest'
                 echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
-                docker pull $IMAGE
+                docker pull docker.io/moatazxz/myapp:latest
                 docker run -d --name demo-app -p 80:80 docker.io/moatazxz/myapp:latest
                 docker ps 
               '
