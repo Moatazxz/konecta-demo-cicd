@@ -6,8 +6,11 @@ pipeline {
       stage ('build') 
       { 
         steps {  
-            
-             sh './test.sh'
+             sh '''
+             chmod +x test.sh
+             ./test.sh
+             
+             '''
              }
      
       }
